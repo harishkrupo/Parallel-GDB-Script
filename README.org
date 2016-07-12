@@ -1,0 +1,12 @@
+* Description :
+  This is merely a tmux script. This script creates a new window and splits the window into the required number of panes and synchronizes them.
+* Dependencies :
+  This scipt reqires tmux installed. Also set the contents of the file "/proc/sys/kernel/yama/ptrace_scope" to 0.
+#+BEGIN_SRC sh
+echo 0 > /proc/sys/kernel/yama/ptrace_scope
+#+END_SRC
+* Usage :
+Open a new tmux window and type
+#+BEGIN_SRC sh
+sh pargdb.sh <name of the process you want to attach to"
+#+END_SRC
