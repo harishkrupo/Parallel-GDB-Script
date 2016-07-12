@@ -8,5 +8,5 @@ echo 0 > /proc/sys/kernel/yama/ptrace_scope
 * Usage :
 Open a new tmux window and type
 #+BEGIN_SRC sh
-sh pargdb.sh <name of the process you want to attach to"
+sh pargdb.sh <name of the process you want to attach to>
 #+END_SRC
