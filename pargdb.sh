@@ -2,7 +2,6 @@
 # Author: KPS Harish Krupo
 # GPL v3 license. See attached LICENSE file for more details
 
-
 function usage()
 {
 	echo -e "\t Usage: sh pargdb.sh \"Name of the executing process\" "
@@ -15,16 +14,21 @@ fi
 
 SESSION=$USER
 
-tmux -2 new-session -d -s $SESSION
 
-tmux new-window -t $SESSION:1 -n 'ParGdb'
+tmux new-window -n 'ParGdb'
 
 read -r -a execs <<< $(pidof $1)
-tmux new-window
-tmux split-window -h
-tmux select-pane -t 0
-tmux send-keys "gdb $1 ${execs[1]}" C-m
+arrlen=${#execs[*]}
 
-tmux select-pane -t 1
-tmux send-keys "gdb $1 ${execs[0]}" C-m
+for i in $(seq 0 $(($arrlen-1)));
+do
+if [ $i -ne $(($arrlen-1)) ];
+then
+   tmux split-window -h;
+fi
+tmux select-pane -t $i
+tmux send-keys "gdb $1 ${execs[$(($arrlen-$i-1))]}" C-m  
+done;
+
+tmux select-layout even-horizontal
 tmux setw synchronize-panes on
